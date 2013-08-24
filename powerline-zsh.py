@@ -45,8 +45,8 @@ class Powerline:
             'separator_thin': u'\u276F'
         },
         'patched': {
-            'separator': u'\u2B80',
-            'separator_thin': u'\u2B81'
+            'separator': '',
+            'separator_thin': ''
         },
         'default': {
             'separator': '⮀',
@@ -312,7 +312,7 @@ if __name__ == '__main__':
     arg_parser.add_argument('prev_error', nargs='?', default=0)
     args = arg_parser.parse_args()
 
-    p = Powerline(mode='default')
+    p = Powerline(mode='patched')
     cwd = get_valid_cwd()
     add_virtual_env_segment(p, cwd)
     #p.append(Segment(' \\u ', 250, 240))
