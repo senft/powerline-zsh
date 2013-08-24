@@ -279,13 +279,16 @@ def add_virtual_env_segment(powerline, cwd):
     return True
 
 
-def add_root_indicator(powerline, error):
+def add_user_indicator(powerline, error):
     bg = Color.CMD_PASSED_BG
     fg = Color.CMD_PASSED_FG
     if int(error) != 0:
         fg = Color.CMD_FAILED_FG
         bg = Color.CMD_FAILED_BG
-    powerline.append(Segment(powerline, ' $ ', fg, bg))
+    if os.getuid() == 0:
+        powerline.append(Segment(powerline, ' # ', fg, bg))
+    else:
+        powerline.append(Segment(powerline, ' $ ', fg, bg))
 
 
 def get_valid_cwd():
@@ -319,7 +322,7 @@ if __name__ == '__main__':
     #p.append(Segment(' \\h ', 250, 238))
     add_cwd_segment(p, cwd, 5, args.cwd_only)
     add_repo_segment(p, cwd)
-    add_root_indicator(p, args.prev_error)
+    add_user_indicator(p, args.prev_error)
     sys.stdout.write(p.draw())
 
 # vim: set expandtab:
